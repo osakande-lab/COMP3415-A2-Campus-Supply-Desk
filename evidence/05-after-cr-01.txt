@@ -1,0 +1,52 @@
+$ python -m unittest discover -s tests -v
+test_invalid_placement_leaves_saved_state_and_next_id_unchanged (test_baseline.BaselineTests.test_invalid_placement_leaves_saved_state_and_next_id_unchanged) ... ok
+test_menu_declining_placement_leaves_state_untouched (test_baseline.BaselineTests.test_menu_declining_placement_leaves_state_untouched) ... ok
+test_quote_and_placement_agree (test_baseline.BaselineTests.test_quote_and_placement_agree) ... ok
+test_reopened_cancelled_order_preserves_snapshot (test_baseline.BaselineTests.test_reopened_cancelled_order_preserves_snapshot) ... ok
+test_repeat_cancellation_does_not_restore_stock_twice (test_baseline.BaselineTests.test_repeat_cancellation_does_not_restore_stock_twice) ... ok
+test_standard_delivery_is_free_at_threshold (test_baseline.BaselineTests.test_standard_delivery_is_free_at_threshold) ... ok
+test_cli_quote_and_place_accept_express (test_express.ExpressTests.test_cli_quote_and_place_accept_express) ... ok
+test_client_pricing_examples (test_express.ExpressTests.test_client_pricing_examples) ... ok
+test_menu_quote_and_confirmed_placement_accept_express (test_express.ExpressTests.test_menu_quote_and_confirmed_placement_accept_express) ... ok
+test_order_snapshot_survives_reopen_and_cancellation (test_express.ExpressTests.test_order_snapshot_survives_reopen_and_cancellation) ... ok
+test_unknown_fulfillment_is_rejected (test_express.ExpressTests.test_unknown_fulfillment_is_rejected) ... ok
+test_cancel_order_restores_stock (test_smoke.OrderSmokeTests.test_cancel_order_restores_stock) ... ok
+test_order_can_be_reopened (test_smoke.OrderSmokeTests.test_order_can_be_reopened) ... ok
+test_regular_pickup_quote (test_smoke.OrderSmokeTests.test_regular_pickup_quote) ... ok
+test_student_delivery_quote (test_smoke.OrderSmokeTests.test_student_delivery_quote) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.008s
+
+OK
+
+$ python -m supplydesk quote --customer student --fulfillment express --item hoodie:2
+{
+  "customer_type": "student",
+  "fulfillment": "express",
+  "items": [
+    {
+      "product_id": "hoodie",
+      "name": "Campus hoodie",
+      "unit_price_cents": 4000,
+      "quantity": 2,
+      "line_total_cents": 8000
+    }
+  ],
+  "subtotal_cents": 8000,
+  "discount_cents": 800,
+  "delivery_cents": 1200,
+  "total_cents": 8400
+}
+
+$ python -m supplydesk quote --help
+usage: __main__.py quote [-h] [--customer {regular,student}]
+                         [--fulfillment {pickup,delivery,express}] --item ITEM
+
+options:
+  -h, --help            show this help message and exit
+  --customer {regular,student}
+  --fulfillment {pickup,delivery,express}
+                        pickup (default), standard delivery, or express
+                        delivery ($12.00 CAD)
+  --item ITEM

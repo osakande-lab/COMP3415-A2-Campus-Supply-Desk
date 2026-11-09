@@ -222,3 +222,9 @@ These commands use the same orders and stock as the interactive menu opened with
 python -m supplydesk --help
 python -m supplydesk quote --help
 ```
+## Assignment verification
+
+Run the full suite with `python -m unittest discover -s tests -v`.
+The files under `evidence/` show the starter run, baseline, post-refactoring
+run, separate cancellation fix, and final express-delivery run. The baseline
+and post-refactoring logs intentionally show the same known failure.
