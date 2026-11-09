@@ -1,0 +1,24 @@
+$ python -m unittest discover -s tests -v
+test_invalid_placement_leaves_saved_state_and_next_id_unchanged (test_baseline.BaselineTests.test_invalid_placement_leaves_saved_state_and_next_id_unchanged) ... ok
+test_menu_declining_placement_leaves_state_untouched (test_baseline.BaselineTests.test_menu_declining_placement_leaves_state_untouched) ... ok
+test_quote_and_placement_agree (test_baseline.BaselineTests.test_quote_and_placement_agree) ... ok
+test_reopened_cancelled_order_preserves_snapshot (test_baseline.BaselineTests.test_reopened_cancelled_order_preserves_snapshot) ... ok
+test_repeat_cancellation_does_not_restore_stock_twice (test_baseline.BaselineTests.test_repeat_cancellation_does_not_restore_stock_twice) ... FAIL
+test_standard_delivery_is_free_at_threshold (test_baseline.BaselineTests.test_standard_delivery_is_free_at_threshold) ... ok
+test_cancel_order_restores_stock (test_smoke.OrderSmokeTests.test_cancel_order_restores_stock) ... ok
+test_order_can_be_reopened (test_smoke.OrderSmokeTests.test_order_can_be_reopened) ... ok
+test_regular_pickup_quote (test_smoke.OrderSmokeTests.test_regular_pickup_quote) ... ok
+test_student_delivery_quote (test_smoke.OrderSmokeTests.test_student_delivery_quote) ... ok
+
+======================================================================
+FAIL: test_repeat_cancellation_does_not_restore_stock_twice (test_baseline.BaselineTests.test_repeat_cancellation_does_not_restore_stock_twice)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/58053509600b/repo/tests/test_baseline.py", line 77, in test_repeat_cancellation_does_not_restore_stock_twice
+    self.assertEqual(self.stock("pen-pack"), 10)
+AssertionError: 12 != 10
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.006s
+
+FAILED (failures=1)
