@@ -3,6 +3,12 @@
 from supplydesk.storage import JsonStore
 
 
+STUDENT_DISCOUNT_MIN_CENTS = 5000
+STUDENT_DISCOUNT_PERCENT = 10
+FREE_STANDARD_DELIVERY_MIN_CENTS = 10000
+STANDARD_DELIVERY_FEE_CENTS = 600
+
+
 class OrderService:
     def __init__(self, state_path=".supplydesk/state.json"):
         self.store = JsonStore(state_path)
@@ -48,11 +54,11 @@ class OrderService:
                 "line_total_cents": line_total,
             })
         discount = 0
-        if customer_type == "student" and subtotal > 5000:
-            discount = (subtotal * 10 + 50) // 100
+        if customer_type == "student" and subtotal > STUDENT_DISCOUNT_MIN_CENTS:
+            discount = (subtotal * STUDENT_DISCOUNT_PERCENT + 50) // 100
         delivery = 0
-        if fulfillment == "delivery" and subtotal - discount < 10000:
-            delivery = 600
+        if fulfillment == "delivery" and subtotal - discount < FREE_STANDARD_DELIVERY_MIN_CENTS:
+            delivery = STANDARD_DELIVERY_FEE_CENTS
         return {
             "customer_type": customer_type,
             "fulfillment": fulfillment,
