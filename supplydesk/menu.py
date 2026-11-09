@@ -42,6 +42,22 @@ def read_request(service):
     return customer, items, fulfillment
 
 
+def confirm_placement(service, request):
+    show_order(service.quote(*request))
+    if input("Place this order? [y/N]: ").strip().lower() == "y":
+        show_order(service.place_order(*request))
+    else:
+        print("Order not placed.")
+
+
+def confirm_cancellation(service):
+    order_id = input("Order ID to cancel: ").strip()
+    if input("Cancel this order? [y/N]: ").strip().lower() == "y":
+        show_order(service.cancel_order(order_id))
+    else:
+        print("Cancellation abandoned.")
+
+
 def run_menu(service):
     print("Campus Supply Desk | All prices are CAD. Orders are saved automatically.")
     while True:
@@ -60,11 +76,7 @@ def run_menu(service):
                     show_order(service.quote(*request))
                     print("Quote only: no stock reserved and no order created.")
                 else:
-                    show_order(service.quote(*request))
-                    if input("Place this order? [y/N]: ").strip().lower() == "y":
-                        show_order(service.place_order(*request))
-                    else:
-                        print("Order not placed.")
+                    confirm_placement(service, request)
             elif choice == "4":
                 orders = service.list_orders()
                 if not orders:
@@ -74,11 +86,7 @@ def run_menu(service):
             elif choice == "5":
                 show_order(service.get_order(input("Order ID: ").strip()))
             elif choice == "6":
-                order_id = input("Order ID to cancel: ").strip()
-                if input("Cancel this order? [y/N]: ").strip().lower() == "y":
-                    show_order(service.cancel_order(order_id))
-                else:
-                    print("Cancellation abandoned.")
+                confirm_cancellation(service)
             else:
                 print("Choose a number from 0 to 6.")
         except (EOFError, KeyboardInterrupt):
