@@ -1,6 +1,9 @@
 ﻿"""Interactive terminal adapter; business rules remain in OrderService."""
 
 
+from supplydesk.service import FULFILLMENT_OPTIONS
+
+
 def money(cents):
     return f"${cents // 100}.{cents % 100:02d}"
 
@@ -38,7 +41,8 @@ def read_request(service):
             print("Please enter a whole number. Re-enter this item.")
             continue
         items.append({"product_id": product_id, "quantity": quantity})
-    fulfillment = input("Fulfillment [pickup/delivery] (Enter = pickup): ").strip() or "pickup"
+    options = "/".join(FULFILLMENT_OPTIONS)
+    fulfillment = input(f"Fulfillment [{options}] (Enter = pickup): ").strip() or "pickup"
     return customer, items, fulfillment
 
 

@@ -174,6 +174,14 @@ python -m supplydesk quote --customer regular --item notebook:2
 python -m supplydesk quote --customer student --fulfillment delivery --item hoodie:2
 ```
 
+For express delivery, pass `--fulfillment express` to `quote` or `place`, or enter
+`express` at the menu fulfillment prompt. Express costs CAD $12.00 for every order.
+The `delivery` option still means standard delivery, and the default remains pickup.
+
+```sh
+python -m supplydesk quote --customer student --fulfillment express --item hoodie:2
+```
+
 Use repeated `--item` options for multiple items:
 
 ```sh
